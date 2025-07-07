@@ -1,0 +1,56 @@
+﻿@model string
+@{ 
+    var fieldPrefix = ViewData.TemplateInfo.HtmlFieldPrefix;
+}
+<script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
+<div class="signature-div" dir="rtl">
+    <style>
+        .input_style {
+            border-top: none;
+            border-right: none;
+            border-left: none;
+            border-bottom: solid 1px;
+        }
+
+        #clr {
+            background: none !important;
+            color: inherit;
+            border: none;
+            padding: 0 !important;
+            font: inherit;
+            border-bottom: 1px solid #444;
+            cursor: pointer;
+            font-weight: bold;
+            margin-right: 100px;
+        }
+    </style>
+
+    <canvas id="@fieldPrefix" width="270" height="130" class="input_style signature-pad" style="background-color:whitesmoke;margin:10px"></canvas><br />
+    <input type="button" class="btn btn-default " value="מחק" id="clr" size="23" onclick="erase()">
+    <input type="hidden" name="@fieldPrefix" class="signature-data" value="@Model" />
+
+    @if (!string.IsNullOrEmpty(Model))
+    {
+        <br />
+        @Html.Partial("DisplayTemplates/Signature", Model)
+    }
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script>
+    var signaturePad;
+    $(function () {
+        var canvas = document.querySelector("#@fieldPrefix");
+        signaturePad = new SignaturePad(canvas);
+    });
+
+    function erase() {
+        signaturePad.clear();
+    }
+
+    function isCanvasBlank(canvas) {
+        return !canvas.getContext('2d')
+            .getImageData(0, 0, canvas.width, canvas.height).data
+            .some(function (c) { return c !== 0; }); //c => c !== 0
+    }
+</script>

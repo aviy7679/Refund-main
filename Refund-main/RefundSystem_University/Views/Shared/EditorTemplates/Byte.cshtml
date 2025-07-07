@@ -1,0 +1,14 @@
+﻿@model Byte?
+@{
+    Type type = (ViewData.ModelMetadata.AdditionalValues?.ContainsKey("Type") ?? false) ? (Type)ViewData.ModelMetadata.AdditionalValues["Type"] : null;
+    string optionLabel = ViewData.ModelMetadata.IsNullableValueType ? "בחר" : null;
+}
+
+@if (type != null)
+{
+    @:@Html.DropDownListFor(model => model, Model.HasValue ? EnumHelper.GetSelectList(type, (Enum)Enum.ToObject(type, Model)) : EnumHelper.GetSelectList(type), optionLabel, new { @class = "form-control" })
+}
+else
+{
+    @:@Html.EditorFor(model => model, new { htmlAttributes = new { @class = "form-control" } })
+}

@@ -1,0 +1,5 @@
+﻿@model int?
+
+@Html.DropDownListFor(model => model, new SelectList(Enumerable.Empty<SelectListItem>()), 
+    new { @class = "form-control selectpicker filterable-select", @data_width = "280px", @data_none_selected_text = "", @data_style_base = "form-control", @data_value = Model })
+

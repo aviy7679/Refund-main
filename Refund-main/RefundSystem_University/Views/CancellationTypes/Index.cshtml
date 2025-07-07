@@ -1,0 +1,51 @@
+﻿@model IEnumerable<RefundSystem_University.Models.CancellationType>
+
+@{
+    ViewBag.Title = "רשימת סוגי ביטול";
+}
+
+<h2>סוגי ביטול</h2>
+
+<p>
+    <a data-toggle="modal" data-target="#cancellation-type-form-modal" data-dismiss="modal">הוסף חדש</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OnRegistrationDay)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OnRegistrationDay)
+        </td>
+        <td>
+            <a onclick="editEntity(@item.Id, 'CancellationTypes', 'cancellation-type')">ערוך</a> |
+            <a onclick="deleteEntity(this, @item.Id, 'CancellationTypes')">מחק</a>
+        </td>
+    </tr>
+}
+
+</table>
+
+@Html.Partial("_Modal", new RefundSystem_University.ViewModels.ModalViewModel()
+{
+    Type = "cancellation-type-form",
+    Title = @"ערוך\הוסף רשומה",
+    SaveFunction = "saveEntity('CancellationTypes', 'cancellation-type')",
+    Body = Html.Partial("~/Views/CancellationTypes/_Form.cshtml", new RefundSystem_University.Models.CancellationType()).ToString()
+})
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/entityFunctions.js"></script>
+}

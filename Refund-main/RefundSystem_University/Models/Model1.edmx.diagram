@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f08e891eb82d425db08b20937356dad8" Name="Diagram1" >
+        <EntityTypeShape EntityType="RefundModel.ApplicationApprovalStatu" Width="1.5" PointX="9.75" PointY="9.125" />
+        <EntityTypeShape EntityType="RefundModel.AuthorizedSignatory" Width="1.5" PointX="7.5" PointY="3.875" />
+        <EntityTypeShape EntityType="RefundModel.CancellationType" Width="1.5" PointX="0.75" PointY="2.875" />
+        <EntityTypeShape EntityType="RefundModel.Department" Width="1.5" PointX="3" PointY="8.625" />
+        <EntityTypeShape EntityType="RefundModel.DepartmentManager" Width="1.5" PointX="5.25" PointY="7.625" />
+        <EntityTypeShape EntityType="RefundModel.Entity" Width="1.5" PointX="0.75" PointY="5.875" />
+        <EntityTypeShape EntityType="RefundModel.Form" Width="1.5" PointX="3" PointY="5.5" />
+        <EntityTypeShape EntityType="RefundModel.ProcessManager" Width="1.5" PointX="5.25" PointY="10.125" />
+        <EntityTypeShape EntityType="RefundModel.RefundApplicationFile" Width="1.5" PointX="9.75" PointY="12.75" />
+        <EntityTypeShape EntityType="RefundModel.User" Width="1.5" PointX="5.25" PointY="13.25" />
+        <AssociationConnector Association="RefundModel.FK_ApplicationApprovalStatus_AuthorizedSignatory" />
+        <AssociationConnector Association="RefundModel.FK_AuthorizedSignatory_User" />
+        <AssociationConnector Association="RefundModel.FK_Form_CancellationType" />
+        <AssociationConnector Association="RefundModel.FK_Department_Entity" />
+        <AssociationConnector Association="RefundModel.FK_DepartmentManager_Department" />
+        <AssociationConnector Association="RefundModel.FK_ProcessManager_Department" />
+        <AssociationConnector Association="RefundModel.FK_Form_Entity" />
+        <AssociationConnector Association="RefundModel.FK_DepartmentManager_User" />
+        <AssociationConnector Association="RefundModel.FK_ProcessManager_User" />
+        <EntityTypeShape EntityType="RefundModel.RefundApplication" Width="1.5" PointX="7.5" PointY="8.375" />
+        <AssociationConnector Association="RefundModel.FK_ApplicationApprovalStatus_RefundApplication" />
+        <AssociationConnector Association="RefundModel.FK_RefundApplication_Department" />
+        <AssociationConnector Association="RefundModel.FK_RefundApplication_Entity" />
+        <AssociationConnector Association="RefundModel.FK_RefundApplication_Form" />
+        <AssociationConnector Association="RefundModel.FK_RefundApplication_ProcessManager" />
+        <AssociationConnector Association="RefundModel.FK_RefundApplication_User" />
+        <AssociationConnector Association="RefundModel.FK_RefundApplicationFile_RefundApplicationFile" />
+        <AssociationConnector Association="RefundModel.FK_DepartmentManager_AuthorizedSignatory" />
+        <AssociationConnector Association="RefundModel.AuthorizedSignatoryEntity" />
+        <EntityTypeShape EntityType="RefundModel.ApprovedRefundApplicationEmailCcRecipient" Width="1.5" PointX="3.375" PointY="0.75" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

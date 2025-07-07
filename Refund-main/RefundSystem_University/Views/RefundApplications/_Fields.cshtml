@@ -1,0 +1,193 @@
+﻿@model RefundSystem_University.Models.RefundApplication
+
+<div class="form-group">
+    @Html.LabelFor(model => model.EntityId, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.DropDownList("EntityId", null, htmlAttributes: new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.EntityId, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.FormId, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.FormId, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.FormId, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.UserId, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.DropDownList("UserId", null, htmlAttributes: new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.DepartmentId, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.DepartmentId, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.DepartmentId, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.ProcessManagerId, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.ProcessManagerId, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.ProcessManagerId, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.CustomerName, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.CustomerName, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.CustomerName, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.CustomerIdNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.CustomerIdNumber, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.CustomerIdNumber, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group for-credit-payment-method hidden">
+    @Html.LabelFor(model => model.CreditLastDigits, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.CreditLastDigits, new { htmlAttributes = new { @class = "form-control", @required = "" } })
+        @Html.ValidationMessageFor(model => model.CreditLastDigits, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group for-cheque-payment-method">
+    @Html.LabelFor(model => model.RefundMethod, htmlAttributes: new { @class = "control-label col-md-2", @required = "" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.RefundMethod, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.RefundMethod, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group for-cheque-payment-method">
+    @Html.LabelFor(model => model.AccountOwnerName, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.AccountOwnerName, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.AccountOwnerName, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group for-cheque-payment-method">
+    @Html.LabelFor(model => model.BankNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.BankNumber, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.BankNumber, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group for-cheque-payment-method">
+    @Html.LabelFor(model => model.BranchNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.BranchNumber, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.BranchNumber, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group for-cheque-payment-method">
+    @Html.LabelFor(model => model.AccountNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.AccountNumber, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.AccountNumber, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.TransactionDate, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.TransactionDate, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.TransactionDate, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.TransactionAmount, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.TransactionAmount, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.TransactionAmount, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.CancellationReason, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.CancellationReason, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.CancellationReason, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.FullCancellation, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.FullCancellation)
+        @Html.ValidationMessageFor(model => model.FullCancellation, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.RefundAmount, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.RefundAmount, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.RefundAmount, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.AdditionalCredit, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.AdditionalCredit)
+        @Html.ValidationMessageFor(model => model.AdditionalCredit, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">במידה וקיימים מספר אנשים בחשבונית עסקה יש לפרט במדויק בגין מי הזיכוי (שם הלקוח)</div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Details, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.TextAreaFor(model => model.Details, htmlAttributes : new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Details, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Remarks, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.TextAreaFor(model => model.Remarks, htmlAttributes: new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Remarks, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.RefundApplicationFiles, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.RefundApplicationFiles, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.RefundApplicationFiles, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">חובה לצרף קבלה<span class="for-cheque-payment-method"> + סימון איזה צ'קים להחזיר</span></div>
+</div>

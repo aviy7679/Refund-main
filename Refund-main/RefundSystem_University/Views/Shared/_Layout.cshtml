@@ -1,0 +1,79 @@
+﻿@{
+    Layout = "~/Views/Shared/_GeneralLayout.cshtml";
+
+    RefundSystem_University.Models.User user = null;
+    if (Session["user"] != null)
+    {
+        user = Session["user"] as RefundSystem_University.Models.User;
+    }
+}
+
+@section styles{
+    @RenderSection("styles", required: false)
+}
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("מערכת החזרים", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+            @if (user != null)
+            {
+                <ul class="nav navbar-nav">
+                    @if (user.IsAdmin)
+                    {
+                        <li>@Html.ActionLink("משתמשים", "Index", "Users")</li>
+                        <li>@Html.ActionLink("מורשי חתימה", "Index", "AuthorizedSignatories")</li>
+                        <li role="presentation" class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                טבלאות ערכים <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("ישויות", "Index", "Entities")</li>
+                                <li>@Html.ActionLink("מחלקות", "Index", "Departments")</li>
+                                <li>@Html.ActionLink("מנהלי מחלקה", "Index", "DepartmentManagers")</li>
+                                <li>@Html.ActionLink("מנהלי תהליך", "Index", "ProcessManagers")</li>
+                                <li>@Html.ActionLink("סוגי ביטול", "Index", "CancellationTypes")</li>
+                                <li>@Html.ActionLink("טפסים", "Index", "Forms")</li>
+                                <li>@Html.ActionLink("נמענים לבקשות מאושרות", "Index", "ApprovedRefundApplicationEmailCcRecipients")</li>
+                            </ul>
+                        </li>
+                    }
+                    <li>@Html.ActionLink("בקשות להחזר", "Index", "RefundApplications")</li>
+                </ul>
+            }
+            <div class="navbar-left">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @if (user == null)
+                {
+                    @Html.ActionLink("התחבר", "Login", "Login", new { area = "" }, new { @class = "navbar-brand" })
+                }
+                else
+                {
+                    @Html.ActionLink("התנתק", "Logout", "Login", new { area = "" }, new { @class = "navbar-brand" })
+                }
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - מערכת החזרים</p>
+        </footer>
+    </div>
+
+@section Scripts{
+    @RenderSection("scripts", required: false)
+}

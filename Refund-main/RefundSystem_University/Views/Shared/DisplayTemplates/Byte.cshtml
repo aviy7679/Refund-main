@@ -1,0 +1,46 @@
+﻿@model Byte?
+@{
+    Type type = null;
+    if (ViewData.ModelMetadata.AdditionalValues?.ContainsKey("Type") ?? false)
+    {
+        type = (Type)ViewData.ModelMetadata.AdditionalValues["Type"];
+    }
+}
+    @if (type != null)
+    {
+        // Display Enum using same names (from [Display] attributes) as in editors
+        string displayName = null;
+        if (Model != null)
+        {
+            foreach (SelectListItem item in EnumHelper.GetSelectList(type, (Enum)Enum.ToObject(type, Model)))
+            {
+                if (item.Selected)
+                {
+                    displayName = item.Text ?? item.Value;
+                }
+            }
+
+            // Handle the unexpected case that nothing is selected
+            if (String.IsNullOrEmpty(displayName))
+            {
+                displayName = Model.ToString();
+            }
+        }
+        else
+        {
+            string optionLabel = null;
+            if (ViewData.ModelMetadata.AdditionalValues?.ContainsKey("optionLabel") ?? false)
+            {
+                optionLabel = ViewData.ModelMetadata.AdditionalValues["optionLabel"].ToString();
+            }
+            displayName = optionLabel ?? String.Empty;
+        }
+
+        @Html.DisplayTextFor(model => displayName)
+    }
+    else
+    {
+        // This Enum type is not supported.  Fall back to the text.
+        @Html.DisplayFor(model => model)
+    }
+

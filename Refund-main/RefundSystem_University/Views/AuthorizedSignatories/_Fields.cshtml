@@ -1,0 +1,85 @@
+﻿@model RefundSystem_University.Models.AuthorizedSignatory
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.JobType, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.JobType, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.JobType, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.UserId, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.DropDownList("UserId", null, htmlAttributes: new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Entities, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.DropDownList("entitiesIds", (MultiSelectList)ViewBag.Entities, htmlAttributes: new { @class = "form-control selectpicker", @multiple = "", @data_style_base = "form-control", @data_width = "280px", @data_none_selected_text = "" })
+        @Html.ValidationMessageFor(model => model.Entities, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.CellPhone, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.CellPhone, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.CellPhone, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.IsForCancellationTypeNotOnRegistrationDay, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        <div class="checkbox">
+            @Html.CheckBoxFor(model => model.IsForCancellationTypeNotOnRegistrationDay, new { @onclick = "$('.order-not-on-registration-day').toggleClass('hidden')" })
+            @Html.ValidationMessageFor(model => model.IsForCancellationTypeNotOnRegistrationDay, "", new { @class = "text-danger" })
+        </div>
+    </div>
+</div>
+
+<div class="form-group order-not-on-registration-day @(!Model.IsForCancellationTypeNotOnRegistrationDay ? "hidden" : "")">
+    @Html.LabelFor(model => model.OrderForCancellationTypeNotOnRegistrationDay, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.TextBoxFor(model => model.OrderForCancellationTypeNotOnRegistrationDay, new { @class = "form-control", @readonly = "" })
+        @Html.ValidationMessageFor(model => model.OrderForCancellationTypeNotOnRegistrationDay, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.IsForCancellationTypeOnRegistrationDay, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        <div class="checkbox">
+            @Html.CheckBoxFor(model => model.IsForCancellationTypeOnRegistrationDay, new { @onclick = "$('.order-on-registration-day').toggleClass('hidden')" } )
+            @Html.ValidationMessageFor(model => model.IsForCancellationTypeOnRegistrationDay, "", new { @class = "text-danger" })
+        </div>
+    </div>
+</div>
+
+<div class="form-group order-on-registration-day @(!Model.IsForCancellationTypeOnRegistrationDay ? "hidden" : "")">
+    @Html.LabelFor(model => model.OrderForCancellationTypeOnRegistrationDay, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.TextBoxFor(model => model.OrderForCancellationTypeOnRegistrationDay, new { @class = "form-control", @readonly = "" })
+        @Html.ValidationMessageFor(model => model.OrderForCancellationTypeOnRegistrationDay, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(model => model.SignaturePath, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.SignaturePath, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.SignaturePath, "", new { @class = "text-danger" })
+    </div>
+</div>

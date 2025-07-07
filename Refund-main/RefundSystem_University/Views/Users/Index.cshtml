@@ -1,0 +1,55 @@
+﻿@model IEnumerable<RefundSystem_University.Models.User>
+
+@{
+    ViewBag.Title = "רשימת משתמשים";
+}
+
+<h2>משתמשים</h2>
+
+<p>
+    @Html.ActionLink("הוסף חדש", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Password)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsAdmin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Password)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsAdmin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.ActionLink("ערוך", "Edit", new { id=item.Id }) |
+            <a onclick="deleteEntity(this, @item.Id, 'Users')">מחק</a>
+        </td>
+    </tr>
+}
+</table>
+
+@Html.AntiForgeryToken()
+
+@section Scripts {
+    <script src="~/Scripts/entityFunctions.js"></script>
+}

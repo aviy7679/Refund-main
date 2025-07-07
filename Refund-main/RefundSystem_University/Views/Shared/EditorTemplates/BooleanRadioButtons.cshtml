@@ -1,0 +1,6 @@
+﻿@model bool?
+
+@Html.RadioButtonFor(model => model, "false") 
+@((ViewData.ModelMetadata.AdditionalValues?.ContainsKey("FalseLabel") ?? false) ? ViewData.ModelMetadata.AdditionalValues["FalseLabel"].ToString() : "לא")
+@Html.RadioButtonFor(model => model, "true") 
+@((ViewData.ModelMetadata.AdditionalValues?.ContainsKey("TrueLabel") ?? false) ? ViewData.ModelMetadata.AdditionalValues["TrueLabel"].ToString() : "כן")

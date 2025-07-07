@@ -1,0 +1,41 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+    @Scripts.Render("~/bundles/modernizr")
+
+    @RenderSection("styles", false)
+</head>
+<body>
+    @RenderBody()
+
+    @* Loader *@
+    <div class="ld-over-full-inverse">
+        <i class="ld ld-ring ld-spin"></i>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+    <script>
+        $(document).ready(function () {
+            let message = '@ViewBag.Message';
+            if (message)
+                alert(message);
+        });
+
+        function toggleLoader(toShow) {
+            $('.ld-over-full-inverse').toggleClass('running', toShow);
+        }
+    </script>
+    @RenderSection("scripts", required: false) 
+</body>
+</html>

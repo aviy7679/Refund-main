@@ -1,0 +1,297 @@
+﻿@model RefundSystem_University.Models.RefundApplication
+@using RefundSystem_University.Models;
+@{
+    ViewBag.Title = "פרטי בקשה להחזר";
+}
+
+<h2>פרטים</h2>
+
+<div>
+    <h4>בקשה להחזר/זיכוי כספי</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomerName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CustomerName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomerIdNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CustomerIdNumber)
+        </dd>
+
+        @if (Model.Form.PaymentMethod == (byte)RefundSystem_University.Models.Enums.PaymentMethod.Credit)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.CreditLastDigits)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CreditLastDigits)
+            </dd>
+        }
+        else
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.RefundMethod)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.RefundMethod)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.AccountOwnerName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.AccountOwnerName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.BankNumber)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BankNumber)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.BranchNumber)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BranchNumber)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.AccountNumber)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.AccountNumber)
+            </dd>
+        }
+        <dt>
+            @Html.DisplayNameFor(model => model.TransactionDate)
+        </dt>
+
+        <dd>
+            @Model.TransactionDate.ToString("dd/MM/yyyy")
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TransactionAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TransactionAmount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CancellationReason)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CancellationReason)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FullCancellation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FullCancellation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RefundAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RefundAmount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AdditionalCredit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AdditionalCredit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Details)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Details)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Remarks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Remarks)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Model.Date.ToString("dd/MM/yyyy")
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DepartmentId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Department.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EntityId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Entity.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FormId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Form.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProcessManagerId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProcessManager.User.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.UserName)
+        </dd>
+
+        <dt>
+            קבצים
+        </dt>
+
+        <dd>
+            @foreach (var item in Model.RefundApplicationFiles)
+            {
+                @Html.Partial("DisplayTemplates/File", item.FilePath)
+            }
+        </dd>
+
+        @{ 
+            var authorizedSignatories = (List<AuthorizedSignatory>)ViewBag.AuthorizedSignatories;
+            var authorizedSignatory = ViewBag.AuthorizedSignatory as AuthorizedSignatory;
+            int i = 0;
+        }
+        @foreach (var item in authorizedSignatories)
+        {
+            i++;
+            <dt>
+                חתימה @i
+            </dt>
+            <dd>
+                @if ((authorizedSignatory == null && !Model.ApplicationApprovalStatus.Any(x => x.AuthorizedSignatoryId == item.Id)) ||
+                    (authorizedSignatory?.Id != item.Id && !Model.ApplicationApprovalStatus.Any(x => x.AuthorizedSignatoryId == item.Id)))
+                {
+                    <div>
+                        ___________________<br>@item.JobType
+                    </div>
+                }
+                else if (authorizedSignatory?.Id == item.Id)
+                {
+                    <div>@item.JobType</div>
+                    @Html.Partial("_ApplicationApprovalStatusForm", new ApplicationApprovalStatu(Model.Id, authorizedSignatory.Id))
+                }
+                else
+                {
+                    <div>@item.JobType</div>
+                    var status = Model.ApplicationApprovalStatus.First(x => x.AuthorizedSignatoryId == item.Id);
+                    if (status.Approved)
+                    {
+                        @Html.Partial("DisplayTemplates/File", status.AuthorizedSignatory.SignaturePath)
+                    }
+                    else
+                    {
+                        <div>
+                            הבקשה נדחתה
+                            <br />
+                            סיבת הדחייה: @status.NonApprovalReason
+                        </div>
+                        break;
+                    }
+                }
+            </dd>
+        }
+
+    </dl>
+</div>
+
+@section Scripts {
+   @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/entityFunctions.js"></script>
+    <script>
+        $(function () {
+            $('input[type=radio][name=Approved]').click(function () {
+                if (this.value == 'false')
+                    $("#NonApprovalReason").attr("required", "").removeAttr("readonly");
+                else
+                    $("#NonApprovalReason").removeAttr("required").attr("readonly", "");
+            });
+
+            $("form").submit(function (e) {
+                e.preventDefault();
+
+                if (!$(this).valid())
+                    return false;
+
+                toggleLoader(true);
+                let formData = new FormData(this);
+                $.ajax({
+                    url: '/RefundApplications/SaveApplicationApprovalStatus',
+                    method: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (result) {
+                        if (result.Success)
+                            location.reload();
+                        else {
+                            alert(result.Message);
+                            console.log(result.Exception);
+                        }
+                    },
+                    error: function () {
+                        alert('השמירה נכשלה');
+                    }
+                });//.always(toggleLoader(false));
+            });
+        });
+
+        $(document).ajaxComplete(function () {
+            toggleLoader(false);
+        });
+    </script>
+}

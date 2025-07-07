@@ -1,0 +1,56 @@
+﻿<script>
+    $(document).ready(function () {
+        console.log('@ViewBag.Exception');
+
+        $(".filterable-select").each(function (i) {
+            toggleLoader(true);
+            let element = this;
+            $.ajax({
+                type: "post",
+                dataType: 'json',
+                url: "/" + element.id.slice(0, -2) + "s/Data",
+                error: function (xhr) {
+                    console.log("An error occurred on filling filterable select data for " + element.id);
+                },
+                success: function (data) {
+                    $(element).append(
+                        $('<option></option>'));
+                    if (data && data.length > 0) {
+                        $.each(data, function (i, datum) {
+                            let option = $('<option></option>').val(datum.Id).html(datum.Name); //.data(datum.Data)
+                            for (var propt in datum.Data)
+                                option.attr("data-" + propt, datum.Data[propt]);
+                            $(element).append(option);
+                        });
+                        $(element).selectpicker('refresh');
+                    }
+                }
+            }).always(toggleLoader(false));
+        });
+    });
+
+    $(document).submit(function () {
+        if (!$(this).find("form").valid())
+            return false;
+
+        $("canvas.signature-pad:visible").each(function () {
+            let signatureDiv = $(this).parents("div.signature-div");
+            let signatureDataInput = signatureDiv.find("input.signature-data");
+            let canvas = this;
+
+            signatureDiv.find("span.field-validation-valid").text('');
+
+            if (!isCanvasBlank(canvas)) {
+                var imageData = canvas.toDataURL("image/png");
+                imageData = imageData.replace('data:image/png;base64,', '');
+                signatureDataInput.val(imageData);
+            }
+            else if (signatureDataInput.attr('required') && $.trim(signatureDataInput.val()) == "") {
+                signatureDiv.find("span.field-validation-valid").text('זהו שדה חובה');
+                return false;
+            }
+        });
+
+        toggleLoader(true);
+    });
+</script>

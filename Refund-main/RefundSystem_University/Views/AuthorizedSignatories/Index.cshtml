@@ -1,0 +1,81 @@
+﻿@model IEnumerable<RefundSystem_University.Models.AuthorizedSignatory>
+
+@{
+    ViewBag.Title = "רשימת מורשי חתימה";
+}
+
+<h2>מורשי חתימה</h2>
+
+<p>
+    @Html.ActionLink("הוסף חדש", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JobType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CellPhone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderForCancellationTypeNotOnRegistrationDay)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderForCancellationTypeOnRegistrationDay)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SignaturePath)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Entities)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.JobType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CellPhone)
+        </td>
+        <td>
+            @Html.DisplayTextFor(modelItem => item.OrderForCancellationTypeNotOnRegistrationDay)
+        </td>
+        <td>
+            @Html.DisplayTextFor(modelItem => item.OrderForCancellationTypeOnRegistrationDay)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SignaturePath)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.UserName)
+        </td>
+        <td>
+            @string.Join(", ", item.Entities?.Select(x => x.Name))
+        </td>
+        <td>
+            @Html.ActionLink("ערוך", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("פרטים", "Details", new { id=item.Id }) |
+            <a onclick="deleteEntity(this, @item.Id, 'AuthorizedSignatories')">מחק</a>
+        </td>
+    </tr>
+}
+
+</table>
+
+@Html.AntiForgeryToken()
+
+@section Scripts {
+    <script src="~/Scripts/entityFunctions.js"></script>
+}

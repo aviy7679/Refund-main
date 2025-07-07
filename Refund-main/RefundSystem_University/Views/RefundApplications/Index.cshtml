@@ -1,0 +1,189 @@
+﻿@model IEnumerable<RefundSystem_University.Models.RefundApplication>
+
+@{
+    ViewBag.Title = "רשימת בקשות להחזר/זיכוי כספי";
+
+    RefundSystem_University.Models.User user = null;
+    if (Session["user"] != null)
+    {
+        user = Session["user"] as RefundSystem_University.Models.User;
+    }
+}
+
+<h2>בקשות להחזר/זיכוי כספי</h2>
+
+<p>
+    @Html.ActionLink("הוסף חדש", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CustomerName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CustomerIdNumber)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.CreditLastDigits)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RefundMethod)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AccountOwnerName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BankNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BranchNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AccountNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TransactionDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TransactionAmount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CancellationReason)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FullCancellation)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.RefundAmount)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.AdditionalCredit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Details)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Remarks)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DepartmentId)
+        </th>
+        @if (user.IsAdmin)
+        {
+            <th>
+                @Html.DisplayNameFor(model => model.EntityId)
+            </th>
+        }
+        <th>
+            @Html.DisplayNameFor(model => model.Form.PaymentMethod)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.ProcessManagerId)
+        </th>*@
+        @if (user.IsAdmin)
+        {
+            <th>
+                @Html.DisplayNameFor(model => model.UserId)
+            </th>
+        }
+        <th>
+            סטטוס
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CustomerName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CustomerIdNumber)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.CreditLastDigits)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RefundMethod)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AccountOwnerName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BankNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BranchNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AccountNumber)
+        </td>
+        <td>
+            @item.TransactionDate.ToString("dd/MM/yyyy")
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TransactionAmount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CancellationReason)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FullCancellation)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.RefundAmount)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.AdditionalCredit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Details)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Remarks)
+        </td>*@
+        <td>
+            @item.Date.ToString("dd/MM/yyyy")
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Department.Name)
+        </td>
+        @if (user.IsAdmin)
+        {
+            <td>
+                @Html.DisplayFor(modelItem => item.Entity.Name)
+            </td>
+        }
+        <td>
+            @Html.DisplayFor(modelItem => item.Form.PaymentMethod)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.ProcessManager.User.UserName)
+        </td>*@
+        @if (user.IsAdmin)
+        {
+            <td>
+                @Html.DisplayFor(modelItem => item.User.UserName)
+            </td>
+        }
+        <td>
+            @string.Join(", ", item.ApplicationApprovalStatus.Select(x => (x.Approved ? "נחתם ע\" " : "נדחה ע\" ") + (x.AuthorizedSignatory.Name + " - " + x.AuthorizedSignatory.JobType)))
+        </td>
+        <td>
+            @*@Html.ActionLink("Edit", "Edit", new { id=item.Id }) |*@
+            @Html.ActionLink("פרטים", "Details", new { id=item.Id }) |
+            <a onclick="deleteEntity(this, @item.Id, 'RefundApplications')">מחק</a>
+        </td>
+    </tr>
+}
+
+</table>
+
+@Html.AntiForgeryToken()
+
+@section Scripts {
+    <script src="~/Scripts/entityFunctions.js"></script>
+}

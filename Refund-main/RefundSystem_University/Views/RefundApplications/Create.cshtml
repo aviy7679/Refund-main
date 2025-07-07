@@ -1,0 +1,150 @@
+﻿@model RefundSystem_University.Models.RefundApplication
+
+@{
+    ViewBag.Title = "הוספת בקשה להחזר";
+}
+
+<h2>הוספה</h2>
+
+@using (Html.BeginForm("Create", "RefundApplications", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>בקשה להחזר/זיכוי כספי</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        
+        @Html.Partial("_Fields", Model)
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="הוסף" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("חזור לרשימה", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Html.Partial("_SaveScripts")
+    <script src="~/Scripts/datepicker.js"></script>
+    <script>
+        $(function () {
+            $("#EntityId").change(handleEntityChange);
+            $("#FormId").change(handleFormChange);
+            $("#DepartmentId").change(handleDepartmentChange);
+            $("#CustomerIdNumber").focusout(handleIdFocusout);
+
+
+            $(document).one("ajaxStop", function () {
+                handleEntityChange();
+                $("#FormId").selectpicker('val', $("#FormId").data("value"));
+                handleFormChange();
+                $("#DepartmentId").selectpicker('val', $("#DepartmentId").data("value"));
+                handleDepartmentChange();
+                $("#ProcessManagerId").selectpicker('val', $("#ProcessManagerId").data("value"));
+            });
+
+            $('input[type=radio][name=AdditionalCredit]').change(function () {
+                if (this.value == true)
+                    $("#Details").attr("required", "");
+                else
+                    $("#Details").removeAttr("required");
+            });
+
+            $("form").submit(function () {
+                if ($('input[name="AdditionalCredit"]:checked').val() == "true" && !$("#Details").val()) {
+                    $("#Details").parent().find("span").text("השדה פירוט הוא חובה כאשר קיים זיכוי נוסף");
+                    return false;
+                }
+                if (parseFloat($("#TransactionAmount").val()) < parseFloat($("#RefundAmount").val())) {
+                    $("#RefundAmount").parent().find("span").text("סכום העסקה חייב להיות גדול מסכום ההחזר");
+                    return false;
+                }
+                let filesElement = document.getElementsByName("files");
+                if (!filesElement.length || filesElement[0].files.length == 0) {
+                    return false;
+                }
+            });
+        });
+
+        function handleEntityChange() {
+            let value = $("#EntityId").val();
+            $('#FormId option, #DepartmentId option').hide();
+            $('#FormId option[data-entityid="' + value + '"], #DepartmentId option[data-entityid="' + value + '"]').show();
+            $('#FormId, #DepartmentId').selectpicker('refresh');
+        }
+
+        function handleFormChange() {
+            var paymentMethod = $("#FormId").find(':selected').data('paymentmethod');
+            $(".for-cheque-payment-method").toggleClass("hidden", paymentMethod == @((byte)RefundSystem_University.Models.Enums.PaymentMethod.Credit));
+            $(".for-credit-payment-method").toggleClass("hidden", paymentMethod == @((byte)RefundSystem_University.Models.Enums.PaymentMethod.Cheque));
+        }
+
+        function handleDepartmentChange() {
+            var cssSelector = '#ProcessManagerId option';
+            $(cssSelector).hide();
+            cssSelector += '[data-departmentid="' + $("#DepartmentId").val() + '"]';
+            $(cssSelector).show();
+            $('#ProcessManagerId').selectpicker('refresh');
+        }
+
+        function handleIdFocusout()
+        {
+            var fname = '';
+            var lname = '';
+            var idnumber = $("#CustomerIdNumber").val();
+            $.ajax({
+                url: 'http://tlv.mkhltd.co.il/University.asmx/GetSubscriberDetails?idNumber=' + idnumber,
+            // It 's represent url of api
+            type: 'GET',
+               // we need to set whether we getting / posting the data
+            dataType: 'text',
+              //type of data
+            success: function (data, textStatus, xhr) {
+                   //here we can the result from data object
+                fname = parseBetween('"SPRT_FIRSTNAME":"', '","SPRT_LASTNAME', data);
+                lname = parseBetween('SPRT_LASTNAME":"', '","SPRT_BIRTHDATE', data);
+                $("#CustomerName").val(fname + ' ' + lname);
+                //alert(fname);
+                    console.log(data);
+                    // here you can proceed to get the data
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.log('Error in Database');
+               //     -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- - >
+               // if any error caught
+                }
+            });
+        }
+
+
+        /**
+ * Parses substring between given begin string and end string.
+ * param beginString the begin string
+ *param endString the end string
+ * param originalString the original string
+ * returns the substring or null if either tag is not found
+ */
+function parseBetween(beginString, endString, originalString) {
+    var beginIndex = originalString.indexOf(beginString);
+    if (beginIndex === -1) {
+        return null;
+    }
+    var beginStringLength = beginString.length;
+    var substringBeginIndex = beginIndex + beginStringLength;
+    var substringEndIndex = originalString.indexOf(endString, substringBeginIndex);
+    if (substringEndIndex === -1) {
+        return null;
+    }
+    return originalString.substring(substringBeginIndex, substringEndIndex);
+}
+
+
+    </script>
+}

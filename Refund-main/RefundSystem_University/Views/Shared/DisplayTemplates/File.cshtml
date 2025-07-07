@@ -1,0 +1,22 @@
+﻿@model string
+@using RefundSystem_University.Models.Enums
+
+@{
+    var type = System.Web.MimeMapping.GetMimeMapping(Model).StartsWith("image/") ? FileType.Image : FileType.File;
+    if (ViewData.ModelMetadata.AdditionalValues != null && ViewData.ModelMetadata.AdditionalValues.ContainsKey("Type"))
+    {
+        type = (FileType)Enum.Parse(typeof(FileType), ViewData.ModelMetadata.AdditionalValues["Type"].ToString());
+    }
+    var imgClass = ViewContext.RouteData.GetRequiredString("action") == "Details" ? "img-view" : "img-index";
+}
+@switch (type)
+{
+    case FileType.Image:
+        <img src="~/Uploads/@Model" alt="" class="@imgClass" />
+        break;
+    case FileType.File:
+        <iframe src="~/Uploads/@Model" style="width: -webkit-fill-available;height: 85vh;"> </iframe>
+        break;
+    default:
+        break;
+}

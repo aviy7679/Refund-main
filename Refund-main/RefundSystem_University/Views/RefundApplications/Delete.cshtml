@@ -1,0 +1,200 @@
+﻿@model RefundSystem_University.Models.RefundApplication
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>RefundApplication</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomerName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CustomerName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomerIdNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CustomerIdNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreditLastDigits)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreditLastDigits)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RefundMethod)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RefundMethod)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AccountOwnerName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AccountOwnerName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BankNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BankNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BranchNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BranchNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AccountNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AccountNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TransactionDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TransactionDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TransactionAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TransactionAmount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CancellationReason)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CancellationReason)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FullCancellation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FullCancellation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RefundAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RefundAmount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AdditionalCredit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AdditionalCredit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Details)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Details)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Remarks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Remarks)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Department.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Department.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Entity.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Entity.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Form.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Form.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProcessManager.Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProcessManager.Id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.UserName)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

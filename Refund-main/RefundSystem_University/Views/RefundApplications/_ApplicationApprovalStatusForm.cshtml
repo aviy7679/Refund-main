@@ -1,0 +1,38 @@
+﻿@model RefundSystem_University.Models.ApplicationApprovalStatu
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        @*<h4>סטטוס הבקשה</h4>*@
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.RefundApplicationId)
+        @Html.HiddenFor(model => model.AuthorizedSignatoryId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Approved, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Approved)
+                    @Html.ValidationMessageFor(model => model.Approved, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NonApprovalReason, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NonApprovalReason, new { htmlAttributes = new { @class = "form-control", @readonly = "" } })
+                @Html.ValidationMessageFor(model => model.NonApprovalReason, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="שמור" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}

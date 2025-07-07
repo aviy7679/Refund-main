@@ -1,0 +1,34 @@
+﻿@model string
+@using RefundSystem_University.Models.Enums
+
+@{
+    var type = FileType.Image;
+    if (ViewData.ModelMetadata.AdditionalValues != null && ViewData.ModelMetadata.AdditionalValues.ContainsKey("Type"))
+    {
+        type = (FileType)Enum.Parse(typeof(FileType), ViewData.ModelMetadata.AdditionalValues["Type"].ToString());
+    }
+    string name = "file";
+    string multiple = "";
+    if ((ViewData.ModelMetadata.AdditionalValues?.ContainsKey("Multiple") ?? false) && (bool)(ViewData.ModelMetadata.AdditionalValues["Multiple"]))
+    {
+        multiple = "multiple";
+        name += "s";
+    }
+    var accept = type == FileType.Image ? "accept='image/*'" : string.Empty;
+    string required = "";
+    if ((ViewData.ModelMetadata.AdditionalValues?.ContainsKey("Required") ?? false) && (bool)(ViewData.ModelMetadata.AdditionalValues["Required"]))
+    {
+        required = "required";
+    }
+}
+
+<input type="file" name="@name" @Html.Raw(accept) @multiple @required />
+
+@Html.ValidationMessageFor(model => model, "", new { @class = "text-danger" })
+
+@if (!string.IsNullOrEmpty(Model))
+{
+    <input type="hidden" name="@ViewData.TemplateInfo.HtmlFieldPrefix" value="@Model" />
+    <br />
+    @Html.Partial("DisplayTemplates/File", Model)
+}

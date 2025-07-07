@@ -1,0 +1,7 @@
+﻿@model Nullable<DateTime>
+@{
+    var fieldPrefix = ViewData.TemplateInfo.HtmlFieldPrefix;
+}
+
+<input type="text" class="form-control datepicker" name="@fieldPrefix" placeholder="DD/MM/YYYY" id="@fieldPrefix"
+       value="@(Model != null ? Model.Value.ToString("dd/MM/yyyy") : "")" autocomplete="off" @*data-provide="datepicker-inline"*@ />

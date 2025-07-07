@@ -1,0 +1,81 @@
+﻿@model RefundSystem_University.Models.AuthorizedSignatory
+
+@{
+    ViewBag.Title = "פרטי מורשה חתימה";
+}
+
+<h2>פרטים</h2>
+
+<div>
+    <h4>מורשה חתימה</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.JobType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.JobType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CellPhone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CellPhone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderForCancellationTypeNotOnRegistrationDay)
+        </dt>
+
+        <dd>
+            @Html.DisplayTextFor(model => model.OrderForCancellationTypeNotOnRegistrationDay)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderForCancellationTypeOnRegistrationDay)
+        </dt>
+
+        <dd>
+            @Html.DisplayTextFor(model => model.OrderForCancellationTypeOnRegistrationDay)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SignaturePath)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SignaturePath)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Entities)
+        </dt>
+
+        <dd>
+            @string.Join(", ", Model.Entities?.Select(x => x.Name))
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("ערוך", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("חזור לרשימה", "Index")
+</p>
