@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f08e891eb82d425db08b20937356dad8" Name="Diagram1" >
+      <Diagram DiagramId="f08e891eb82d425db08b20937356dad8" Name="Diagram1" ZoomLevel="82" >
         <EntityTypeShape EntityType="RefundModel.ApplicationApprovalStatu" Width="1.5" PointX="9.75" PointY="9.125" />
         <EntityTypeShape EntityType="RefundModel.AuthorizedSignatory" Width="1.5" PointX="7.5" PointY="3.875" />
         <EntityTypeShape EntityType="RefundModel.CancellationType" Width="1.5" PointX="0.75" PointY="2.875" />

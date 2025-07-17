@@ -9,7 +9,7 @@ namespace RefundSystem_University.Controllers
     public class LoginController : BaseController
     {
         // GET: Login
-        [AllowAnonymous]
+        [AllowAnonymous]   //גם משתמשים לא מחוברים יכולים לגשת
         public ActionResult Login()
         {
             string returnUrl = "";
@@ -30,6 +30,9 @@ namespace RefundSystem_University.Controllers
                 if (user != null)
                 {
                     Session["User"] = user;
+                    //Session["User"] = new User { IsAdmin = true };
+                    //return RedirectToAction("Index", "Home");
+
 
                     if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
                         return Redirect(returnUrl);

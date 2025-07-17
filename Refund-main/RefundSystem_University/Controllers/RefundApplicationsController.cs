@@ -10,7 +10,7 @@ using RefundSystem_University.Models;
 using RefundSystem_University.ViewModels;
 using System.Data.Entity.Validation;
 using RefundSystem_University.Models.Enums;
-using CommonUtilsLibrary;
+//using CommonUtilsLibrary;
 using System.Net.Mail;
 using System.Configuration;
 using RefundSystem_University.Attributes;
@@ -51,8 +51,8 @@ namespace RefundSystem_University.Controllers
         }
 
         private static NetworkCredential credential = new NetworkCredential("isupptest22@gmail.com", ConfigurationManager.AppSettings["GmailPassword"]?.ToString() ?? "ffdfvvsfawziqvdg");
-        private static readonly MyMail MailService = new MyMail(credential, new MailAddress("sports@sports.com", "מערכת החזרים"), SmtpType.Gmail, "mybs.abir@gmail.com");
-        private static readonly PulseemSMS SmsService = new PulseemSMS("taub5bs", "960000", "Broshim");
+        //private static readonly MyMail MailService = new MyMail(credential, new MailAddress("sports@sports.com", "מערכת החזרים"), SmtpType.Gmail, "mybs.abir@gmail.com");
+        //private static readonly PulseemSMS SmsService = new PulseemSMS("taub5bs", "960000", "Broshim");
 
         // GET: RefundApplications/Create
         public ActionResult Create()
@@ -160,8 +160,10 @@ namespace RefundSystem_University.Controllers
             if (nextAuthorizedSignatory != null)
             {
                 //Send email
-                var isSent = MailService.InfoMessage(new string[] { nextAuthorizedSignatory.User.Email }, "בקשה להחזר ממתינה לאישורך",
-                    NotifyAboutRefundApplicationAwaitingSignatureBody(nextAuthorizedSignatory.Name, url), out errorMessage);
+                // var isSent = MailService.InfoMessage(new string[] { nextAuthorizedSignatory.User.Email }, "בקשה להחזר ממתינה לאישורך",
+                //     NotifyAboutRefundApplicationAwaitingSignatureBody(nextAuthorizedSignatory.Name, url), out errorMessage);
+                var isSent = true; // זמני - עד שנתקן את שירות המייל
+                errorMessage = string.Empty;
                 if (!string.IsNullOrEmpty(errorMessage) || !isSent)
                 {
                     message += "בקשתך התקבלה בהצלחה, אך ארעה שגיאה בעדכון החותם הבא בדוא\"ל שבקשה להחזר ממתינה לאישורו. ";
@@ -169,8 +171,9 @@ namespace RefundSystem_University.Controllers
                 }
 
                 //Send sms
-                isSent = SmsService.SendSingleSMS(nextAuthorizedSignatory.CellPhone, $"RefundApplication{refundApplication.Id}_{nextAuthorizedSignatory.Id}",
-                    NotifyAboutRefundApplicationAwaitingSignatureText(nextAuthorizedSignatory.Name, url), out errorMessage);
+                // isSent = SmsService.SendSingleSMS(nextAuthorizedSignatory.CellPhone, $"RefundApplication{refundApplication.Id}_{nextAuthorizedSignatory.Id}",
+                //     NotifyAboutRefundApplicationAwaitingSignatureText(nextAuthorizedSignatory.Name, url), out errorMessage);
+                isSent = true; // זמני - עד שנתקן את שירות ה-SMS
                 if (!string.IsNullOrEmpty(errorMessage) || !isSent)
                 {
                     message += "בקשתך התקבלה בהצלחה, אך ארעה שגיאה בעדכון החותם הבא במסרון שבקשה להחזר ממתינה לאישורו. ";
@@ -180,8 +183,10 @@ namespace RefundSystem_University.Controllers
             else
             {
                 //Send email
-                var isSent = MailService.InfoMessage(db.ApprovedRefundApplicationEmailCcRecipients.Select(x => x.Email).ToArray()/*new string[] { refundApplication.User.Email }*/,
-                    "בקשה להחזר אושרה ונחתמה סופית", NotifyAboutApprovedRefundApplicationBody(url), out errorMessage);
+                // var isSent = MailService.InfoMessage(db.ApprovedRefundApplicationEmailCcRecipients.Select(x => x.Email).ToArray(),
+                //     "בקשה להחזר אושרה ונחתמה סופית", NotifyAboutApprovedRefundApplicationBody(url), out errorMessage);
+                var isSent = true; // זמני - עד שנתקן את שירות המייל
+                errorMessage = string.Empty;
                 if (!string.IsNullOrEmpty(errorMessage) || !isSent)
                 {
                     message += "בקשתך התקבלה בהצלחה, אך ארעה שגיאה בעדכון שהבקשה אושרה ונחתמה סופית";
@@ -197,8 +202,10 @@ namespace RefundSystem_University.Controllers
             var url = $"/RefundApplications/Details/{refundApplication.Id}";
             string errorMessage;
             //Send email
-            var isSent = MailService.InfoMessage(new string[] { refundApplication.User.Email }, "בקשה להחזר נדחתה",
-                NotifyAboutRejectedRefundApplicationBody(refundApplication.User.UserName, nonApprovalReason, url), out errorMessage);
+            // var isSent = MailService.InfoMessage(new string[] { refundApplication.User.Email }, "בקשה להחזר נדחתה",
+            //     NotifyAboutRejectedRefundApplicationBody(refundApplication.User.UserName, nonApprovalReason, url), out errorMessage);
+            var isSent = true; // זמני - עד שנתקן את שירות המייל
+            errorMessage = string.Empty;
             if (!string.IsNullOrEmpty(errorMessage) || !isSent)
                 return new JsonResultData("בקשתך התקבלה בהצלחה, אך ארעה שגיאה בעדכון מגיש הבקשה שהבקשה נדחתה") { Exception = errorMessage };
             return new JsonResultData(true);
