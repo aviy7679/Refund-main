@@ -247,6 +247,8 @@
     <Compile Include="ViewModels\JsonResultData.cs" />
     <Compile Include="ViewModels\ModalViewModel.cs" />
     <Compile Include="ViewModels\ViewError.cs" />
+    <Compile Include="Services\EmailService.cs" />
+    <Compile Include="Services\SmsService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-select.css" />

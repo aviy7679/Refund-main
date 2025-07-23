@@ -45,3 +45,6 @@ wwwroot/
 # Secrets and keys
 appsettings.*.json
 secrets.json
+
+web.config
+
